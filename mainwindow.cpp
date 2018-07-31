@@ -40,8 +40,11 @@ void MainWindow::on_choiceFileButton_clicked()
      {
          QByteArray line = file.readLine();
          QString str(line);
-         qDebug()<< str;
-         displayString.append(str);
+         if( str.contains("NP_100_A",Qt::CaseSensitive) )
+         {
+            qDebug()<< str;
+            displayString.append(str);
+         }
      }
 
 }
