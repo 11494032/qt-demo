@@ -1,13 +1,14 @@
 #include "writexml.h"
 #include <QDebug>
 #include <QTxml/QDomDocument>
+#include <iostream>
 WriteXml::WriteXml()
 {
 }
 
-bool WriteXml::writeFile( QString fileName )
+bool WriteXml::writeFile( QString data)
 {
-
+    QString strDoc;
     QFile file("mydocument.xml");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {
@@ -15,19 +16,26 @@ bool WriteXml::writeFile( QString fileName )
         return false;
     }
 
-    QDomDocument doc("mydocument");
+    QDomDocument doc("first version");
     QDomText text;
     QDomElement element;
 
     QDomProcessingInstruction instruction;
-    instruction = doc.createProcessingInstruction("xml","version=\'1.0\'");
+    instruction = doc.createProcessingInstruction("xml","version=\"1.0\" encoding=\"GB2312\"");
 
     doc.appendChild(instruction);
 
-    QDomElement root = doc.createElement("root");
+
+     QDomElement root = doc.documentElement();
+     root = doc.createElement("root");
     doc.appendChild( root );
+
+    //getElementsByTagName('root');
+
     QDomElement general = doc.createElement("general");
     doc.appendChild( general );
+
+
 
     element = doc.createElement("author");
     text = doc.createTextNode( "zeki" );
@@ -39,7 +47,12 @@ bool WriteXml::writeFile( QString fileName )
     element.appendChild(text);
     general.appendChild( element );
 
-
+    QDomNodeList list=doc.childNodes();
+    for(int i=0;i<list.count();i++){
+        QDomNode node=list.at(i);
+        qDebug()<<"node name is "<<node.nodeName();
+        qDebug()<<"node type is "<<node.nodeType();
+    }
     QTextStream out(&file);
     doc.save(out,4);
 
