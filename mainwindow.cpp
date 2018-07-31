@@ -21,13 +21,15 @@ void MainWindow::on_choiceFileButton_clicked()
 {
     QString filename = QFileDialog::getOpenFileName(this,tr("文件选择"), "",tr("test(*)"));
     qDebug()<<filename;
+    ui->fineNameLineEdit->clear();
+    ui->fineNameLineEdit->setText(filename);
     if( filename.isEmpty())
     {
         QMessageBox::about(this,tr("提示信息"),tr("空文件"));
         return;
     }
 
-    QString displayString;
+     QString displayString;
      QFile file( filename );
      if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
      {
@@ -41,6 +43,5 @@ void MainWindow::on_choiceFileButton_clicked()
          qDebug()<< str;
          displayString.append(str);
      }
-     ui->fineNametextEdit->clear();
-     ui->fineNametextEdit->setPlainText(displayString);
+
 }
