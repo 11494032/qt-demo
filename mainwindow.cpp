@@ -3,6 +3,7 @@
 
 #include <QFileDialog>
 #include <QDebug>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,12 +17,30 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_choiceFileButton_clicked()
 {
-    QString filename = QFileDialog::getOpenFileName(this,tr("文件选择"), "",tr("test(*.cpp)"));
-    qDebug()<<filenames;
-    if( !filename.isEmpty())
+    QString filename = QFileDialog::getOpenFileName(this,tr("文件选择"), "",tr("test(*)"));
+    qDebug()<<filename;
+    if( filename.isEmpty())
     {
-
+        QMessageBox::about(this,tr("提示信息"),tr("空文件"));
+        return;
     }
+
+    QString displayString;
+     QFile file( filename );
+     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+     {
+         QMessageBox::about(this,tr("提示信息"),tr("不能打开的文件"));
+         qDebug()<<"Can't open the file!"<<endl;
+     }
+     while(!file.atEnd())
+     {
+         QByteArray line = file.readLine();
+         QString str(line);
+         qDebug()<< str;
+         displayString.append(str);
+     }
+     ui->fineNametextEdit->clear();
+     ui->fineNametextEdit->setPlainText(displayString);
 }
