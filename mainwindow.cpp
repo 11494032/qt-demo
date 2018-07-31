@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QMessageBox>
 
+#include "writexml.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -46,5 +48,13 @@ void MainWindow::on_choiceFileButton_clicked()
             displayString.append(str);
          }
      }
+
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    WriteXml write;
+    QString fileName = "Motor.xml";
+    write.writeFile(fileName);
 
 }
