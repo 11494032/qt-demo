@@ -31,7 +31,7 @@ void MainWindow::on_choiceFileButton_clicked()
         return;
     }
 
-     QString displayString;
+     QStringList displayString;
      QFile file( filename );
      if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
      {
@@ -44,17 +44,17 @@ void MainWindow::on_choiceFileButton_clicked()
          QString str(line);
          if( str.contains("NP_100_A",Qt::CaseSensitive) )
          {
-            qDebug()<< str;
+           // qDebug()<< str;
             displayString.append(str);
+
          }
      }
 
+    WriteXml writeXml;
+    writeXml.writeFile( displayString );
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    WriteXml write;
-    QString fileName = "Motor.xml";
-    write.writeFile(fileName);
 
 }

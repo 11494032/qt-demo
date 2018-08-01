@@ -2,12 +2,13 @@
 #define WRITEXML_H
 #include <QString>
 #include <QFile>
+#include <QStringList>
 
 class WriteXml
 {
 public:
     WriteXml();
-    bool writeFile( QString fileName );
+    bool writeFile(QStringList fileName );
 
 };
 
