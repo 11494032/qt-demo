@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    writexml.cpp
+    writexml.cpp \
+    writejson.cpp
 
 HEADERS  += mainwindow.h \
-    writexml.h
+    writexml.h \
+    writejson.h
 
 FORMS    += mainwindow.ui

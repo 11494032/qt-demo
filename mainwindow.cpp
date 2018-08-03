@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QMessageBox>
 
-#include "writexml.h"
+#include "writejson.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -50,8 +50,8 @@ void MainWindow::on_choiceFileButton_clicked()
          }
      }
 
-    WriteXml writeXml;
-    writeXml.writeFile( displayString );
+     WriteJson writeJson;
+     writeJson.WriteData( displayString );
 }
 
 void MainWindow::on_pushButton_clicked()
